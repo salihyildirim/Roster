@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getitdonee/models/items_data.dart';
+import 'package:getitdonee/widgets/item_card.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,7 +25,7 @@ class HomePage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
-                    '5 Items',
+                    '${Provider.of<ItemData>(context).items.length} Items',
                     style: Theme.of(context).textTheme.headline3,
                   ),
                 ),
@@ -36,6 +39,18 @@ class HomePage extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(50))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: ListView.builder(
+                        itemCount: Provider.of<ItemData>(context).items.length,
+                        itemBuilder: (context, index) => ItemCard(
+                            tittle: Provider.of<ItemData>(context)
+                                .items[index]
+                                .tittle,
+                            isDone: Provider.of<ItemData>(context)
+                                .items[index]
+                                .isDone)),
+                  ),
                 ),
               ),
             )

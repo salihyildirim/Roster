@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './screens/home_page.dart';
+import 'models/items_data.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<ItemData>(
+      create: (BuildContext context) => ItemData(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
