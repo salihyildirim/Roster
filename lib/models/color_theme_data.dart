@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorThemeData with ChangeNotifier {
-  ThemeData greenTheme = ThemeData(
+  ThemeData _greenTheme = ThemeData(
       primaryColor: Colors.green,
       scaffoldBackgroundColor: Colors.green,
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
@@ -13,7 +13,7 @@ class ColorThemeData with ChangeNotifier {
             color: Colors.white,
           ),
           subtitle1: TextStyle(color: Colors.white)));
-  ThemeData redTheme = ThemeData(
+  ThemeData _redTheme = ThemeData(
       primaryColor: Colors.red,
       scaffoldBackgroundColor: Colors.red,
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)
@@ -40,7 +40,7 @@ class ColorThemeData with ChangeNotifier {
           subtitle1: TextStyle(color: Colors.white)));
 
   void switchTheme(bool selected) {
-    _selectedThemeData = selected ? greenTheme : redTheme;
+    _selectedThemeData = selected ? _greenTheme : _redTheme;
     notifyListeners();
   }
 
