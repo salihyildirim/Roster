@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getitdonee/models/items_data.dart';
+import 'package:getitdonee/screens/settings_page.dart';
 import 'package:getitdonee/widgets/item_card.dart';
 import 'package:provider/provider.dart';
+
+import 'item_adder.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,6 +15,22 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                  icon: Icon(Icons.settings),
+                  iconSize: 35,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SettingsPage(),
+                      ),
+                    );
+                  }),
+            )
+          ],
           centerTitle: true,
           title: Text(
             'Get It Done',
@@ -42,14 +61,22 @@ class HomePage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: ListView.builder(
-                        itemCount: Provider.of<ItemData>(context).items.length,
-                        itemBuilder: (context, index) => ItemCard(
-                            tittle: Provider.of<ItemData>(context)
-                                .items[index]
-                                .tittle,
-                            isDone: Provider.of<ItemData>(context)
-                                .items[index]
-                                .isDone)),
+                      itemCount: Provider.of<ItemData>(context).items.length,
+                      itemBuilder: (context, index) => ItemCard(
+                        tittle:
+                            Provider.of<ItemData>(context).items[index].tittle,
+                        isDone:
+                            Provider.of<ItemData>(context).items[index].isDone,
+                        toggleStatus: (_) {
+                          Provider.of<ItemData>(context, listen: false)
+                              .toggleStatus(index);
+                        },
+                        deleteItem: (_) {
+                          Provider.of<ItemData>(context, listen: false)
+                              .deleteItem(index);
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -57,7 +84,15 @@ class HomePage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: null,
+          onPressed: () {
+            showModalBottomSheet(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(55),
+              ),
+              context: context,
+              builder: (context) => ItemAdder(),
+            );
+          },
           child: Icon(Icons.add),
         ));
   }
