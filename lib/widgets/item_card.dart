@@ -16,6 +16,7 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
+      //kaydırarak sil. bir widgetı silebilme özelliği
       onDismissed: deleteItem,
       key: Key(tittle),
       child: Card(

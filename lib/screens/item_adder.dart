@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getitdonee/models/items_data.dart';
 import 'package:provider/provider.dart';
@@ -25,10 +26,11 @@ class ItemAdder extends StatelessWidget {
                 onChanged: (input) {},
                 style: TextStyle(color: Colors.black, fontSize: 18),
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12)),
                     labelText: 'Add Item',
                     hintText: '...'),
-                autofocus: true,
+                autofocus: true, //imleç gözüksün tıklayınca textfielda
               ),
               MaterialButton(
                   child: Text('ADD'),

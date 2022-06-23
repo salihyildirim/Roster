@@ -38,9 +38,10 @@ class ColorThemeData with ChangeNotifier {
             color: Colors.white,
           ),
           subtitle1: TextStyle(color: Colors.white)));
-
+  var isGreen = true;
   void switchTheme(bool selected) {
     _selectedThemeData = selected ? _greenTheme : _redTheme;
+    isGreen = selected;
     notifyListeners();
   }
 
