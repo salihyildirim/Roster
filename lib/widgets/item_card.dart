@@ -18,7 +18,7 @@ class ItemCard extends StatelessWidget {
     return Dismissible(
       //kaydırarak sil. bir widgetı silebilme özelliği
       onDismissed: deleteItem,
-      key: Key(tittle),
+      key: UniqueKey(),
       child: Card(
         elevation: isDone ? 1 : 5,
         color: isDone ? Colors.green.shade50 : Colors.white,

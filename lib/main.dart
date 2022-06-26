@@ -8,7 +8,7 @@ import 'models/items_data.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ColorThemeData().createPrefObject();
-
+  await ItemData().createPrefObject();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ItemData>(
       create: (BuildContext context) => ItemData(),
@@ -21,17 +21,21 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Provider.of<ColorThemeData>(context).loadThemeFromSharedPref();
+    //Provider.of<ColorThemeData>(context).loadThemeFromSharedPref();
+    // Provider.of<ItemData>(context).loadItemsFromSharedPref();
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: Provider.of<ColorThemeData>(context).selectedThemeData,
-      home: HomePage(),
-    );
+    return Consumer2<ItemData, ColorThemeData>(
+        builder: (context, itemData, colorThemeData, child) {
+      itemData.loadItemsFromSharedPref();
+      colorThemeData.loadThemeFromSharedPref();
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: Provider.of<ColorThemeData>(context).selectedThemeData,
+        home: HomePage(),
+      );
+    });
   }
 }
 
